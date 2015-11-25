@@ -19,6 +19,21 @@ public class Domain {
     private LocalDateTime validTill;
     private boolean isRegistered;
 
+    public static Domain registerNewDomain(RegistrationRequest registrationRequest) {
+
+        return registerDomain(registrationRequest);
+    }
+
+    public static Domain registerReservedDomain(RegistrationRequest registrationRequest) {
+
+        return registerDomain(registrationRequest);
+    }
+
+    private static Domain registerDomain(RegistrationRequest registrationRequest) {
+
+        return null;
+    }
+
     public Domain(DomainName domainName, Period period, Registrant registrant, Registrar.RegistrarId registrarId, NameServers nameServers, boolean isRegistered) {
         this.domainName = domainName;
         this.registrant = registrant;
@@ -29,7 +44,9 @@ public class Domain {
         this.validTill = created.plus(period);
     }
 
-    public void extend(Period period) {
+    public void renew(Period period) {
         validTill = validTill.plus(period);
     }
+
+    public void update()
 }
