@@ -11,22 +11,22 @@ public class DomainService {
     private DomainRepository domainRepository;
 
     public void registerDomain(RegistrationRequest request) {
-        checkState(domainRepository.isDomainAvailable(request.getName(), request.getZone()), "domain not available");
+        checkState(domainRepository.isDomainAvailable(request.getDomainName()), "domain not available");
         Domain domain = domainFactory.registeredDomain(request);
         domainRepository.save(domain);
     }
 
     public void reserveDomain(ReservationRequest request) {
-        checkState(domainRepository.isDomainAvailable(request.getName(), request.getZone()), "domain not available");
+        checkState(domainRepository.isDomainAvailable(request.getDomainName()), "domain not available");
         Domain domain = domainFactory.reservedDomain(request);
         domainRepository.save(domain);
     }
 
-    public boolean isDomainAvailable(String name, Zone zone) {
-        return domainRepository.isDomainAvailable(name, zone);
+    public boolean isDomainAvailable(DomainName domainName) {
+        return domainRepository.isDomainAvailable(domainName);
     }
 
-    public void prolongDomain(String domainName, Period period) {
+    public void prolongDomain(DomainName domainName, Period period) {
         Domain domain = domainRepository.findByDomainName(domainName);
         domain.prolong(period);
     }

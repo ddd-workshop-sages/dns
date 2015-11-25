@@ -7,19 +7,14 @@ import java.util.Set;
 
 public class RegistrationRequest {
 
-    private String name;
-    private Zone zone;
+    private DomainName domainName;
     private Period period;
     private Registrant registrant;
     private Registrar.RegistrarId registrarId;
-    private Set<NameServer> nameServers;
+    private NameServers nameServers;
 
-    public String getName() {
-        return name;
-    }
-
-    public Zone getZone() {
-        return zone;
+    public DomainName getDomainName() {
+        return domainName;
     }
 
     public Period getPeriod() {
@@ -34,7 +29,7 @@ public class RegistrationRequest {
         return registrarId;
     }
 
-    public Set<NameServer> getNameServers() {
+    public NameServers getNameServers() {
         return nameServers;
     }
 }

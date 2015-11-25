@@ -11,33 +11,23 @@ public class Domain {
 
     private static final ZoneId TIMEZONE = ZoneId.of("UTC");    // TODO: clock instead of ZoneID
 
-    private Zone zone;
-    private String name;
-    private Set<NameServer> nameServers;
+    private DomainName domainName;
+    private NameServers nameServers;
     private Registrant registrant;
     private Registrar.RegistrarId registrarId;
     private LocalDateTime created;
     private LocalDateTime validTill;
     private boolean isRegistered;
 
-    public Domain(String name, Zone zone, Period period, Registrant registrant, Registrar.RegistrarId registrarId, boolean isRegistered) {
-        this.name = name;
-        this.zone = zone;
+    public Domain(DomainName domainName, Period period, Registrant registrant, Registrar.RegistrarId registrarId, NameServers nameServers, boolean isRegistered) {
+        this.domainName = domainName;
         this.registrant = registrant;
         this.registrarId = registrarId;
         this.isRegistered = isRegistered;
+        this.nameServers = nameServers;
         this.created = LocalDateTime.now(TIMEZONE);
         this.validTill = created.plus(period);
     }
-
-    public void setNameServers(Set<NameServer> nameServers) {
-        this.nameServers = nameServers;
-    }
-
-    public String getDomainName() {
-        return name + '.' + zone.getName();
-    }
-
 
     public void prolong(Period period) {
         validTill = validTill.plus(period);

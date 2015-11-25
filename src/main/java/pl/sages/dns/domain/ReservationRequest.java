@@ -6,17 +6,15 @@ import java.util.Set;
 
 public class ReservationRequest {
 
+    private DomainName domainName;
     private String name;
     private Zone zone;
     private Registrant registrant;
     private Registrar.RegistrarId registrarId;
+    private NameServers nameServers;
 
-    public String getName() {
-        return name;
-    }
-
-    public Zone getZone() {
-        return zone;
+    public DomainName getDomainName() {
+        return domainName;
     }
 
     public Registrant getRegistrant() {
@@ -25,5 +23,9 @@ public class ReservationRequest {
 
     public Registrar.RegistrarId getRegistrarId() {
         return registrarId;
+    }
+
+    public NameServers getNameServers() {
+        return nameServers;
     }
 }
