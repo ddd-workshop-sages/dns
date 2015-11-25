@@ -10,7 +10,7 @@ class NameServers {
         this.hostnames = hostnames;
     }
 
-    public boolean areValid() {
+    public boolean areValidNameServers() {
         return true;
     }
 }

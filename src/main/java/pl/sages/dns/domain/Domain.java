@@ -39,7 +39,7 @@ public class Domain {
         checkNotNull(registration.getNameServers());
         //same for others
 
-        checkArgument(registration.getNameServers().areValid());
+        checkArgument(registration.getNameServers().areValidNameServers());
         return new Domain(registration.getDomainName(), registration.getPeriod(), registration.getRegistrant(), registration.getRegistrarId(), registration.getNameServers());
     }
 
