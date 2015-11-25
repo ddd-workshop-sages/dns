@@ -4,7 +4,7 @@ import java.util.List;
 
 class NameServers {
 
-    private List<String> hostnames;
+    private List<String> hostnames; //TODO: NameServer instead of Strings
 
     public NameServers(List<String> hostnames) {
         this.hostnames = hostnames;
