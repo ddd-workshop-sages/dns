@@ -8,7 +8,8 @@ public class DomainRegistrator {
 
     public Domain registerDomain(RegistrationRequest registration) {
         Optional<ReservationRequest> reservation = reservationRepository.findByDomainName(registration.getDomainName());
-        if (reservation.isPresent()) {return  Domain.registerReservedDomain(registration, reservation.get());
+        if (reservation.isPresent()) {
+            return Domain.registerReservedDomain(registration, reservation.get());
         } else {
             return Domain.registerNewDomain(registration);
         }
