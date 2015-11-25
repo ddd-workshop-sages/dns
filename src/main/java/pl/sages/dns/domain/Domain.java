@@ -29,7 +29,7 @@ public class Domain {
         this.validTill = created.plus(period);
     }
 
-    public void prolong(Period period) {
+    public void extend(Period period) {
         validTill = validTill.plus(period);
     }
 }
