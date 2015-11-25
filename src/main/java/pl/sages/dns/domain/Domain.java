@@ -17,7 +17,7 @@ public class Domain {
     private NameServers nameServers;
     private Registrant registrant;
     private Registrar.RegistrarId registrarId;
-    private LocalDateTime created;
+    private LocalDateTime createdAt;
     private LocalDateTime validTill;
 
     public static Domain registerNewDomain(RegistrationRequest registrationRequest) {
@@ -48,8 +48,8 @@ public class Domain {
         this.registrant = registrant;
         this.registrarId = registrarId;
         this.nameServers = nameServers;
-        this.created = LocalDateTime.now(TIMEZONE);
-        this.validTill = created.plus(period);
+        this.createdAt = LocalDateTime.now(TIMEZONE);
+        this.validTill = createdAt.plus(period);
     }
 
     public void renew(Period period) {
