@@ -5,7 +5,9 @@ import pl.sages.dns.registrar.Registrar;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.Set;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Domain {
 
@@ -17,28 +19,34 @@ public class Domain {
     private Registrar.RegistrarId registrarId;
     private LocalDateTime created;
     private LocalDateTime validTill;
-    private boolean isRegistered;
 
     public static Domain registerNewDomain(RegistrationRequest registrationRequest) {
-
         return registerDomain(registrationRequest);
     }
 
-    public static Domain registerReservedDomain(RegistrationRequest registrationRequest) {
-
-        return registerDomain(registrationRequest);
+    public static Domain registerReservedDomain(RegistrationRequest registration, ReservationRequest reservation) {
+        checkArgument(requestsHaveSameRegistrar(registration, reservation));
+        // check if it's for the same domain
+        RegistrationRequest completeRegistrationRequest = registration.merge(reservation);
+        return registerDomain(completeRegistrationRequest);
     }
 
-    private static Domain registerDomain(RegistrationRequest registrationRequest) {
-
-        return null;
+    private static boolean requestsHaveSameRegistrar(RegistrationRequest registration, ReservationRequest reservation) {
+        return registration.getRegistrarId().equals(reservation.getRegistrarId());
     }
 
-    public Domain(DomainName domainName, Period period, Registrant registrant, Registrar.RegistrarId registrarId, NameServers nameServers, boolean isRegistered) {
+    private static Domain registerDomain(RegistrationRequest registration) {
+        checkNotNull(registration.getNameServers());
+        //same for others
+
+        checkArgument(registration.getNameServers().areValid());
+        return new Domain(registration.getDomainName(), registration.getPeriod(), registration.getRegistrant(), registration.getRegistrarId(), registration.getNameServers());
+    }
+
+    private Domain(DomainName domainName, Period period, Registrant registrant, Registrar.RegistrarId registrarId, NameServers nameServers) {
         this.domainName = domainName;
         this.registrant = registrant;
         this.registrarId = registrarId;
-        this.isRegistered = isRegistered;
         this.nameServers = nameServers;
         this.created = LocalDateTime.now(TIMEZONE);
         this.validTill = created.plus(period);
@@ -48,5 +56,11 @@ public class Domain {
         validTill = validTill.plus(period);
     }
 
-    public void update()
+    public void update(UpdateDomainRequest update) {
+        checkArgument(registrarId.equals(update.getRegistrarId()));
+        if (update.getRegistrant() != null) {
+            registrant = update.getRegistrant();
+        }
+        // same for others where it makes sense
+    }
 }

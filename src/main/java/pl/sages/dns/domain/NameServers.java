@@ -9,4 +9,8 @@ class NameServers {
     public NameServers(List<String> hostnames) {
         this.hostnames = hostnames;
     }
+
+    public boolean areValid() {
+        return true;
+    }
 }

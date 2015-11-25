@@ -7,8 +7,6 @@ import java.util.Set;
 public class ReservationRequest {
 
     private DomainName domainName;
-    private String name;
-    private Zone zone;
     private Registrant registrant;
     private Registrar.RegistrarId registrarId;
     private NameServers nameServers;

@@ -7,10 +7,10 @@ class DomainFactory {
     private static final Period RESERVATION_PERIOD = Period.ofDays(3);
 
     Domain registeredDomain(RegistrationRequest request) {
-       return new Domain(request.getDomainName(), request.getPeriod(), request.getRegistrant(), request.getRegistrarId(),request.getNameServers(), true);
+       return new Domain(request.getDomainName(), request.getPeriod(), request.getRegistrant(), request.getRegistrarId(),request.getNameServers());
     }
 
     Domain reservedDomain(ReservationRequest request) {
-        return new Domain(request.getDomainName(), RESERVATION_PERIOD, request.getRegistrant(), request.getRegistrarId(),request.getNameServers(), false);
+        return new Domain(request.getDomainName(), RESERVATION_PERIOD, request.getRegistrant(), request.getRegistrarId(),request.getNameServers());
     }
 }
